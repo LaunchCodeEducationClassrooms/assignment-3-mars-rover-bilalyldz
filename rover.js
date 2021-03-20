@@ -11,19 +11,9 @@ class Rover {
     this.mode = 'NORMAL';
     this.generatorWatts = 110;
   }
-  /**
-   * @param {Message}
-   */
-
-  //  new Message('Test message',
-  // [
-  //   new Command('STATUS_CHECK'),
-  //   new Command('text', 400)
-  // ]
+  
   receiveMessage(message) {
-
-    const results = [];
-
+    let results = [];
     if (message.commands) {
       for (const CC of message.commands) {
         let result;
@@ -36,15 +26,17 @@ class Rover {
               generatorWatts: this.generatorWatts
             }
           }
-        } else if (CC.commandType == "MODE_CHANGE") {
+        } 
+        else if (CC.commandType == "MODE_CHANGE") {
           this.mode = CC.value;
-          result = { completed: true }
+          result = { completed: true}
         } else if (CC.commandType == "MOVE") {
           if (this.mode == "NORMAL") {
             this.position = CC.value;
-            result = { completed: true }
+            result = { completed: true
+            }
           }
-           else if (CC.commandType == "LOW_POWER") {
+           else if (this.mode == "LOW_POWER") {
             result = { completed: false }
           }
         }
